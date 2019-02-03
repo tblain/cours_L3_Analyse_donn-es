@@ -1,0 +1,110 @@
+mail: kbenabde@univ-lyon1.fr
+site: perso.univ-lyon1.fr/khalid.benabdeslem
+
+Donnée : une description élémentaire d'un objet, une transaction, une observation, un signal, un graphe...
+
+Information : le moyen pour un individu de connaitre son envrionnement
+
+Connaissance : un etat de transition de la donnée
+
+le lien décisionnelle:
+ - D->I : on fait appelle à une base de donnée / system d'info
+ - I->C : on fait appelle à des modules de représentation de connaissances sous forme de courbes (BI)
+ - D->C on fait appelle à un ECD => methode statistique descriptives ou exploratives
+
+nous on va faire D->C
+
+chap 1 : extraction de connaissances élémentaires => calcules à base d'inertie
+chap 2 : visualisation de données multi-dimensionnelles => analyse factorielle
+chap 3 : extraction de profiles à partir de données
+
+Types de données:
+ - quantitatives: des entiers, reelles
+ - qualitatives / catégorielles: pas d'ordres entre les données, ex basique : binaires
+ - mixtes des deux:
+ - complexes: XML, signal, graphe, ...
+
+Proximité entre données: se calcul par la distance
+ - données quantitatives: x et y appartient à R^p
+	- euclidienne / 2-distances / norme 2: d(x, y) = sqrt(sommes i=1 =>n, (xi - yi)^2)
+	- distance de manhattan / norme 1: sommes i=1 => n, |xi - yi|
+ - données qualitative (binaires):
+	- distance de Hamming: le nbr de bits différent
+	- matching: basé sur une table de contingence
+	 y|1 0    a = le nbr de position où x=y=1
+	x-|-----  b = //                    x=1 et y=0
+	 1|a b    c = //		    x=0 et y=1
+	 0|c d    d = //		    x=y=0
+	distance = b+c / a+b+c+d
+ 
+ - données à variables nominales:
+=> codage binaire disjonctif
+une sorte de one-hot encoding
+ex: x=bleu, y=vert, z=rouge
+ |bleu|vert|rouge
+x|1   |0   |0
+y|0   |1   |0
+z|0   |0   |1
+
+=> codade binaire ordinale
+
+ |taille   |petit|moyen|grand 
+x|petit   x|1    |0    |0
+y|moyen   y|1    |1    |0
+z|grand   z|1    |1    |1
+
+Extraction de connaissances élémentaires
+
+Défi 1: centre de gravité des données
+Soit E={a1, a2, .., an} tq chaque ai appartient R^P et associé à une masse mi( poids ou importance )
+
+G(E) = (somme i=1 => n, mi * ai) / (sommes i=1 => n, mi)
+
+si pour tout i mi = 1 => la moyenne
+
+Défi 2: inertie d'une base de données par rapport à une donnée particulière
+Ib(E) = sommes i=1 => n mi * d^2(ai, b)
+
+si mi = 1/n quelque soit i => variance
+I(E) = sommes i=1 => n, mi * d^2(ai, g(E))
+
+Défi 3: matrice d'inertie
+QQues ingrédients:
+ - X^(X avec un accent circonflexe): Matrice centrée de X: la matrice des données E
+	X^ij = Xij - Gj(E)
+ - D(nxn): matrice diagonale dont le ième terme = mi
+ 
+ T = M(E)=X^^t D X^
+t =>transposé
+1 2
+3 4 => 1357
+5 6    2468
+7 8
+ T est de dimension pxp
+
+Défi 4: inertie relative à partition
+	soit une partition P={A1, A2, ..., Aq}
+	-> inertie intra-groupes:
+	Iw(P) = sommes k=1 => n, I(Ak)
+	
+	-> Inertie intergroupes
+	IB(P) = sommes k=1 => n, mAk d^2(g(Ak), g(E))
+
+Défi 5: Matrice d'inertie intra-groupes
+	W = sommes k=1 =>q M(Ak)
+	dimension de W: pxp
+
+Défi 6: Matrice d'inertie inter-groupes
+QQues ingrédients:
+	G: une matrice des centres de gravité des groupes (qxp)
+	Dg: matrice diagonale, le kieme terme diagonale = mAk (somme des elements du groupe)
+	B = G^^t Dg G^
+
+Défi 7: inertie suivant une direction
+	soit U un vecteur dans R^p tq norme de U / ||U|| = 1
+	||U(x, y, z) || = sqrt(x^2 + y^2 + z^2)
+	si on projette toutes les données de E sur U
+		- U^t T U : inertie totale de E sur U
+		- U^t W U : inertie intra-groupes sur U
+		- U^t B U : inertie inter-groupes sur U
+	p = (U^t B U) / (U^t T U) : pouvoir de discrimination
