@@ -108,3 +108,4 @@ Défi 7: inertie suivant une direction
 		- U^t W U : inertie intra-groupes sur U
 		- U^t B U : inertie inter-groupes sur U
 	p = (U^t B U) / (U^t T U) : pouvoir de discrimination
+	en projetant le plan multidimensionnel sur un plan de moindre dimension, on perd de l'info c'est ce que mesure p

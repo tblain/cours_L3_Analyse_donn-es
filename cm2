@@ -1,0 +1,80 @@
+Cours magistral 2
+
+Analyse factorielle => il s'agit d'une méthode statistique, descriptive, qui consiste à:
+ - remplacer les variables réelles par des variables artificielles ou synthetique en conservant le max d'infos
+ - de réduire les dimensions tout en fournissant une représentation graphique
+
+Algo:
+
+Input: les données sous forme de matrice X(nxp)
+
+ - Cj: le vecteur correspondant à la j^ieme colonne
+ - Li: le vecteur correspondant à la i^ieme ligne
+
+Etude dans R^p => consiste à représenter les données avec un max de gain d'info, on cherche à construire une variable synthetique F
+
+-> comment construire F ?
+QQue ingrédients:
+ - alpha = (alpha 1) avec ||alpha|| = 1
+	    alpha 2
+	    alpha ...
+	    alpha N
+ - F = (phi 1) phi i = somme j=1 => p, alpha j * xij
+	phi 2        = alpha^t * Li^t
+	phi ...
+	phi N
+
+-> comment trouver alpha ? (la bonne direction)
+alpha i ||alpha|| = 1
+soit Pi la projetction de Li sur la direction supportée par alpha
+
+schema:
+ - droite avec un pt O et un pt : distance alpha
+ - pt Li en angle droit part rapport à la droite au pt Pi
+ d^2(O, Li) = d^2(0, Pi) + d^2(Li, Pi)
+
+=> Min d^2(Li, Pi) <=> Max d^2(O, Pi) on fera ça
+-> Max somme i=1 => n, d^2(0, Pi)
+ c'est comme l'inertie par rapport à une donnée particulière qui est O
+ <=> Max alpha^t * X^t * X * alpha, ||alpha|| = 1
+
+X^t * X : une matrice pxp
+ - positive (d^2)
+ - sysmetrique
+ce probleme admet p vecteur propre orthogonaux: u1, u2, ..., up associéschacun à p valeurs propres positives lambda1, ..., lambda p, tq lambda 1 >= lambda2 >= ... >= lambda p
+
+U : le vecteur propre associé à la plus grande valeur propre lambda 1 pour résoudre le probleme
+
+-> comment trouver lambda ?
+
+det(lambda * I - Xt * X^0) = 0
+
+-> comment trouver U ?
+
+ X^t * X U = lambda U <- system d'équations
+
+on refait de meme pour trouver la 2 données synthetiques mais en prenant le vecteur propre correspondant à la 2 plus grand valeur propre
+
+pi = (lambda 1 + lambda 2) / (tous les lambda) : perte d'inertie sur le preier plan factoriel
+
+perte d'info: 1 - pi : pas sûr
+
+Output:
+ - matrice de départ * (Vecteur propre 1 collé au vecteur propre 2) = matrice nx2
+
+
+--------------------
+
+Contribution des points lignes:
+Ck(i) = PHIik ^2 / lambda k tq PHIik est la composante donnée i sur l'axe Lc <- ? pas sur du c
+
+la qualité de la représentation:
+ Cos^2(Uk, i) = PHIik ^2 / somme h, PHIik ^2
+
+-------------------
+
+Type d'analyses:
+ ACP => analyse en composantes principales
+	diagonaliser la matrice V de covariance
+ ACP centrée => diagonaliser X^ <=> V=1/n * X^t * X, n le nombre de lignes
+ ACP normée => diagonaliser la matrice de correlation
