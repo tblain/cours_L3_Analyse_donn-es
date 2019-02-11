@@ -41,21 +41,21 @@ schema:
 X^t * X : une matrice pxp
  - positive (d^2)
  - sysmetrique
-ce probleme admet p vecteur propre orthogonaux: u1, u2, ..., up associéschacun à p valeurs propres positives lambda1, ..., lambda p, tq lambda 1 >= lambda2 >= ... >= lambda p
+ce probleme admet p vecteur propre orthogonaux: u1, u2, ..., up associés chacun à p valeurs propres positives lambda1, ..., lambda p, tq lambda 1 >= lambda2 >= ... >= lambda p
 
 U : le vecteur propre associé à la plus grande valeur propre lambda 1 pour résoudre le probleme
 
 -> comment trouver lambda ?
 
-det(lambda * I - Xt * X^0) = 0
+det(lambda * I - Xt * X) = 0
 
 -> comment trouver U ?
 
- X^t * X U = lambda U <- system d'équations
+ X^t * X * U = lambda * U <- system d'équations
 
 on refait de meme pour trouver la 2 données synthetiques mais en prenant le vecteur propre correspondant à la 2 plus grand valeur propre
 
-pi = (lambda 1 + lambda 2) / (tous les lambda) : perte d'inertie sur le preier plan factoriel
+pi = (lambda 1 + lambda 2) / (tous les lambda) : perte d'inertie sur le premier plan factoriel
 
 perte d'info: 1 - pi : pas sûr
 

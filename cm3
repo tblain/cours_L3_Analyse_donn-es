@@ -1,0 +1,109 @@
+CM3 : Classification automatique
+--------------------------
+
+Def: processus non supervise qui consiste a trouver des groupes a partir de donnees multidimensionnelles avec un bon compromis entre l'homogeneite intra-classes et l'heterogeneite inter-class
+
+====================================
+
+Types de classifications:
+-------------------------
+
+1) Classification plate (par partitionnement) on fait celle la
+2)    //          hierarchique                et celle ci
+3)    //          a base de models
+4)    //          a base de densite
+5)    //          a base de grilles
+
+====================================
+
+Classification plate : K-moyennes (K-Means), methodes des centres mobiles
+ - les donnees sont representes dans R^p
+ - les dissimilarites entre les donnees sont mesures par la distance euclidienne
+ - K-means consiste a minimiser l'inertie intra-classes
+
+Algo:
+-----
+
+ - donnee q:(le nombre de classes)
+-> initialisation:
+------------------
+
+choisir aleatoirement q donnees de la matrice de depart pour former une partition P sur toute la base E
+
+-> repeter:
+-----------
+
+pour tout Ak c(appartient) P tq Ak diff de 0, calculer G(Ak)
+changer = False
+
+for i in range(1, n):
+	determiner une partie Ak0 c P tq:
+	if d2(G(A de alpha(i), ai) = d2(G(Ak0, ai))):
+		k0 = alpha(i) (A alpha(i) : l'elem de P qiu contient ai)
+	if k0 = alpha(i):
+		A alpha(i) = A alpha(i) - {ai}; Ak0 = Ak0 U {ai}; changer = True
+
+ex:
+---
+
+une droite
+q = 3
+
+1  2  3            7  8  9           13    15   17
+-  -  -                                              repartion des classes
+
+on choisit comme 3 donnes : 1, 2, 3
+
+centre de gravite G1 = 1, G2 = 2, G3 = 3, 
+
+1  2  3            7  8  9           13    15    17
+-  -  -                                            
+
+toutes les donnes de 7 a 17 sont attires par 3
+G1 = 1, G2 = 2, G3 = la moyenne de 3 a 17 = 9, 86
+
+1  2  3            7  8  9           13    15    17
+-  -  ---------------------------------------------
+
+a chaque fois toutes les classes entre en competition pour attirer les donnes
+G1 = 1, G2 = 2+3/2, G3 = moyennes de 6 a 17
+
+1  2  3            7  8  9           13    15    17
+-  ----            --------------------------------
+
+G1 = 1, G2 = 3.66, G3 = 12
+
+1  2  3            7  8  9           13    15    17
+-  ------------------------------------------------
+
+G1 = 1.5, G2 = 5.33, G3 = 13.25
+
+1  2  3            7  8  9           13    15   17
+-------            -------           --------------
+
+G1 = 2, G2 = 7, G3 = 15
+
+============================================
+
+Classification Ascendante Hierarchique
+--------------------------------------
+
+Def :  elle consiste a construire de facon iterative une suite de partitions de E(base initiale sous forme matricielle) de telle sorte que la partition obtenue a l'etape k soit issue de celle obtenue a l'etape k-1
+
+ -> le principe generale
+------------------------
+
+1) soit E ={a1, a2, ..., an} ; ai c R^p
+-> Ai = {ai}i; i=1 -> n
+
+2) selectionner les 2 donnes les plus proches et les mettre ensembles dans une classe
+-> on se retrouve donc avec n-1 classes
+
+pour calculer la distance entre 2 groupes, la distance euclidienne ne fonctionne pas, on a besoins de meta distance
+
+omega(A, B) = min(d(a, b) tq a c A et b c B)
+     groupes	  donnees
+
+strategie du saut minimale
+
+	INSERER LES DESSINS DE LA FEUILLE
